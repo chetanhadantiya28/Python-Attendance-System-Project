@@ -1,0 +1,5 @@
+{
+  "name": "College Attendance Management System",
+  "description": "A production-ready college attendance platform with role-based access for Admin, Faculty, and Students. Features strict attendance rules, 'No Class' day logic, and Excel exports.",
+  "requestFramePermissions": []
+}
