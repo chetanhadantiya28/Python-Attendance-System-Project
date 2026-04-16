@@ -8,7 +8,7 @@ export default function TeacherDashboard() {
   const [subjects, setSubjects] = React.useState<Subject[]>([]);
   const [selectedSubject, setSelectedSubject] = React.useState<Subject | null>(null);
   const [students, setStudents] = React.useState<Student[]>([]);
-  const [attendance, setAttendance] = React.useState<Record<number, boolean>>({});
+  const [attendance, setAttendance] = React.useState<Record<string, boolean>>({});
   const [isClassHeld, setIsClassHeld] = React.useState(true);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState('');
@@ -22,7 +22,7 @@ export default function TeacherDashboard() {
         if (Array.isArray(data)) {
           setSubjects(data);
         } else {
-          setError(data.message || 'Failed to load subjects');
+          setError('Failed to load subjects');
         }
       })
       .catch(err => {
@@ -39,13 +39,13 @@ export default function TeacherDashboard() {
     const data = await api.getSubjectStudents(subject.subject_id);
     setStudents(data);
     // Initialize all students as present
-    const initial: Record<number, boolean> = {};
+    const initial: Record<string, boolean> = {};
     data.forEach((s: Student) => initial[s.student_id] = true);
     setAttendance(initial);
     setMessage({ type: '', text: '' });
   };
 
-  const toggleAttendance = (studentId: number) => {
+  const toggleAttendance = (studentId: string) => {
     setAttendance(prev => ({ ...prev, [studentId]: !prev[studentId] }));
   };
 
@@ -301,7 +301,7 @@ function DetailedReport({ subjects, onClose }: { subjects: Subject[], onClose: (
   };
 
   const handleExport = () => {
-    const sub = subjects.find(s => s.subject_id === Number(subjectId));
+    const sub = subjects.find(s => s.subject_id === subjectId);
     api.exportDetailedReport(report, sub?.subject_name || 'Report');
   };
 

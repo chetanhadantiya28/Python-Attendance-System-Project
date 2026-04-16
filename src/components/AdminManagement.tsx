@@ -17,11 +17,10 @@ export function ManageCourses() {
     load();
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this course? This will also delete all subjects and attendance records associated with it.')) {
       try {
         const res = await api.deleteCourse(id);
-        if (res.message) throw new Error(res.message);
         load();
       } catch (error: any) {
         alert(error.message || 'Failed to delete course');
@@ -74,7 +73,7 @@ export function ManageCourses() {
 export function ManageFaculty() {
   const [faculty, setFaculty] = React.useState<Faculty[]>([]);
   const [form, setForm] = React.useState({ name: '', email: '', password: '' });
-  const [editingId, setEditingId] = React.useState<number | null>(null);
+  const [editingId, setEditingId] = React.useState<string | null>(null);
 
   const load = () => api.getFaculty().then(setFaculty);
   React.useEffect(() => { load(); }, []);
@@ -96,11 +95,10 @@ export function ManageFaculty() {
     setForm({ name: f.name, email: f.email, password: '' });
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this faculty member?')) {
       try {
         const res = await api.deleteFaculty(id);
-        if (res.message) throw new Error(res.message);
         load();
       } catch (error: any) {
         alert(error.message || 'Failed to delete faculty');
@@ -181,7 +179,7 @@ export function ManageStudents() {
   const [students, setStudents] = React.useState<Student[]>([]);
   const [courses, setCourses] = React.useState<Course[]>([]);
   const [form, setForm] = React.useState({ roll_number: '', name: '', email: '', password: '', course_id: '', semester: '' });
-  const [editingId, setEditingId] = React.useState<number | null>(null);
+  const [editingId, setEditingId] = React.useState<string | null>(null);
 
   const load = () => {
     api.getStudents().then(setStudents);
@@ -213,11 +211,10 @@ export function ManageStudents() {
     });
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this student?')) {
       try {
         const res = await api.deleteStudent(id);
-        if (res.message) throw new Error(res.message);
         load();
       } catch (error: any) {
         alert(error.message || 'Failed to delete student');
@@ -327,7 +324,7 @@ export function ManageSubjects() {
   const [courses, setCourses] = React.useState<Course[]>([]);
   const [faculty, setFaculty] = React.useState<Faculty[]>([]);
   const [form, setForm] = React.useState({ subject_name: '', course_id: '', semester: '', faculty_id: '' });
-  const [editingId, setEditingId] = React.useState<number | null>(null);
+  const [editingId, setEditingId] = React.useState<string | null>(null);
 
   const load = () => {
     api.getSubjects().then(setSubjects);
@@ -358,11 +355,10 @@ export function ManageSubjects() {
     });
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this subject?')) {
       try {
         const res = await api.deleteSubject(id);
-        if (res.message) throw new Error(res.message);
         load();
       } catch (error: any) {
         alert(error.message || 'Failed to delete subject');

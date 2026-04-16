@@ -14,7 +14,7 @@ export default function StudentDashboard() {
         if (Array.isArray(data)) {
           setReports(data);
         } else {
-          setError(data.message || 'Failed to load attendance data');
+          setError('Failed to load attendance data');
         }
       })
       .catch(err => {

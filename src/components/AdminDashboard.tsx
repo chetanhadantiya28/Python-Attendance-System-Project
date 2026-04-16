@@ -14,7 +14,7 @@ export default function AdminDashboard() {
         if (data && typeof data.totalStudents !== 'undefined') {
           setAnalytics(data);
         } else {
-          setError(data.message || 'Failed to load analytics');
+          setError('Failed to load analytics');
         }
       })
       .catch(err => {
